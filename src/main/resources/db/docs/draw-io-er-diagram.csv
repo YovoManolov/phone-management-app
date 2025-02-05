@@ -1,0 +1,11 @@
+Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,Source Arrow,Destination Arrow,Status,Text Area 1,Text Area 2,Text Area 3,Text Area 4,Text Area 5,Text Area 6,Text Area 7,Text Area 8,Text Area 9,Text Area 10,Text Area 11,Text Area 12,Text Area 13,Comments
+1,Document,,,,,,,,,Draft,Db design phone app,,,,,,,,,,,,,
+2,Page,,,,,,,,,,Page 1,,,,,,,,,,,,,
+3,Entity,Entity Relationship,2,,,,,,,,Customer,id,PK,name,varchar,address,varchar,age,int,email_contact_number,varchar,product_id,FK,
+4,Entity,Entity Relationship,2,,,,,,,,Product,id,PK,name,varchar,price,decimal,currency,varchar,discount applied,boolean,,,
+5,Entity,Entity Relationship,2,,,,,,,,Subscription,id,PKPK,name,varchar,price,decimal,subcription_type,varchar,validity,Type,,,
+6,Entity,Entity Relationship,2,,,,,,,,Promotion,id,PK,name,varchar,discount,int,discount_type,varchar,number_of_vouchers,int,,,
+7,Entity,Entity Relationship,2,,,,,,,,customer_subscription,customer_id,FK,subscription_Id,FK,,,,,,,,,
+8,Line,,2,,,3,4,CFN ERD Many Arrow,CFN ERD One Arrow,,,,,,,,,,,,,,,
+9,Line,,2,,,3,7,CFN ERD One Arrow,CFN ERD Many Arrow,,,,,,,,,,,,,,,
+10,Line,,2,,,5,7,CFN ERD One Arrow,CFN ERD Many Arrow,,,,,,,,,,,,,,,

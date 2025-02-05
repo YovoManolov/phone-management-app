@@ -36,7 +36,6 @@ public class CustomerResource {
                 .build();  // Call build() only once, at the end
     }
 
-
     // Create a new customer
     @POST
     public Response createCustomer(Customer customer) {
