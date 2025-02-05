@@ -1,8 +1,17 @@
 package org.phoneapp.model;
 
 import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Customer {
 
     @Id
@@ -15,6 +24,15 @@ public class Customer {
     public String emailContactNumber;
 
     @ManyToOne
-    private Product category;
+    private Product product;
+
+    @ManyToMany
+    @JoinTable(
+            name = "customer_subscription", // Name of the join table
+            joinColumns = @JoinColumn(name = "customer_id"), // Column in the join table for the student
+            inverseJoinColumns = @JoinColumn(name = "subscription_id") // Column in the join table for the course
+    )
+    private Set<Subscription> subscriptions = new HashSet<>();
+
 
 }
