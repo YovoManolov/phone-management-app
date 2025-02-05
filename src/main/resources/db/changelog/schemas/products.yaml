@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: yovo
+      changes:
+        - createSchema:
+            schemaName: products

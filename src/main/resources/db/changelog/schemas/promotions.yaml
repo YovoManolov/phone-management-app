@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - changeSet:
+      id: promotions-schema-1
+      author: yovo
+      changes:
+        - createSchema:
+            schemaName: promotions

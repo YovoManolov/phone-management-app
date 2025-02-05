@@ -1,0 +1,45 @@
+databaseChangeLog:
+  - changeSet:
+      id: customer-1
+      author: yovo
+      changes:
+        - createTable:
+            schemaName: customers
+            tableName: customer
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: address
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: gender
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: age
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email_contact_number
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: int
+                  constraints:
+                    nullable: false

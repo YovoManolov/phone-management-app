@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: customer_subscription-1
+      author: admin
+      changes:
+        - createTable:
+            schemaName: subscriptions
+            tableName: customer_subscription
+            columns:
+              - column:
+                  name: customer_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: subscription_id
+                  type: int
+                  constraints:
+                    nullable: false

@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: 6
+      author: yovo
+      changes:
+        - createTable:
+            schemaName: subscriptions
+            tableName: subscription
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: plan
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: start

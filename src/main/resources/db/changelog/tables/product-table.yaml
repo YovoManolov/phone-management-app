@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: product-1
+      author: yovo
+      changes:
+        - createTable:
+            schemaName: products
+            tableName: product
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price
+                  type: decimal
+                  constraints:
+                    nullable: false
+              - column:
+                  name: currency
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: discount_applied
+                  type: boolean
+                  constraints:
+                    nullable: false
+              - column:
+                  name: customer_id
+                  type: int
+                  constraints:
+                    nullable: false

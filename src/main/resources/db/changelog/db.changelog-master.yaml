@@ -1,0 +1,25 @@
+databaseChangeLog:
+
+  - include:
+      file: "schemas/customers.yaml"
+  - include:
+      file: "schemas/products.yaml"
+  - include:
+      file: "schemas/promotions.yaml"
+  - include:
+      file: "schemas/subscriptions.yaml"
+
+  - include:
+      file: "tables/customer-table.yaml"
+  - include:
+      file: "tables/subscription-table.yaml"
+  - include:
+      file: "tables/customer-subscription-table.yaml"
+  - include:
+      file: "tables/product-table.yaml"
+  - include:
+      file: "tables/promotion-table.yaml"
+
+
+  - include:
+      file: "constraints/foreign-keys.yaml"

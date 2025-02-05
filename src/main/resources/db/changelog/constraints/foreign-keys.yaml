@@ -1,0 +1,29 @@
+databaseChangeLog:
+    - changeSet:
+          id: fk-ids-1
+          author: yovo
+          changes:
+              - addForeignKeyConstraint:
+                    baseTableSchemaName: subscriptions
+                    baseTableName: customer_subscription
+                    baseColumnNames: subscription_id
+                    referencedTableSchemaName: subscriptions
+                    referencedTableName: subscription
+                    referencedColumnNames: id
+                    constraintName: fk_subscription_customer_subscription
+              - addForeignKeyConstraint:
+                      baseTableSchemaName: subscriptions
+                      baseTableName: customer_subscription
+                      baseColumnNames: customer_id
+                      referencedTableSchemaName: customers
+                      referencedTableName: customer
+                      referencedColumnNames: id
+                      constraintName: fk_customer_customer_subscription
+              - addForeignKeyConstraint:
+                    baseTableSchemaName: customers
+                    baseTableName: customer
+                    baseColumnNames: product_id
+                    referencedTableSchemaName: products
+                    referencedTableName: product
+                    referencedColumnNames: id
+                    constraintName: fk_product_customer

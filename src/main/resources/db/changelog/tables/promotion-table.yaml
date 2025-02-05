@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: 5
+      author: yovo
+      changes:
+        - createTable:
+            schemaName: promotions
+            tableName: promotion
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: promocode
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: discount
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: discount_type
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: number_of_vouchers
+                  type: int
+                  constraints:
+                    nullable: false
