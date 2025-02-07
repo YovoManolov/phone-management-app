@@ -3,5 +3,6 @@ databaseChangeLog:
       id: customers-schema-1
       author: yovo
       changes:
-        - createSchema:
-            schemaName: customers
+        - sql:
+            dbms: postgresql
+            sql: CREATE SCHEMA IF NOT EXISTS customers;

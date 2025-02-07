@@ -14,9 +14,22 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: plan
+                  name: name
                   type: varchar(255)
                   constraints:
                     nullable: false
               - column:
-                  name: start
+                  name: price
+                  type: decimal
+                  constraints:
+                    nullable: false
+              - column:
+                  name: subscription_type
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: validity
+                  type: varchar(255)
+                  constraints:
+                    nullable: false

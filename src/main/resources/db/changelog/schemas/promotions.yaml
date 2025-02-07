@@ -3,5 +3,6 @@ databaseChangeLog:
       id: promotions-schema-1
       author: yovo
       changes:
-        - createSchema:
-            schemaName: promotions
+        - sql:
+            dbms: postgresql
+            sql: CREATE SCHEMA IF NOT EXISTS promotions;

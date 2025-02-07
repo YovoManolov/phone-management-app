@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: customer_subscription-1
-      author: admin
+      author: yovo
       changes:
         - createTable:
             schemaName: subscriptions

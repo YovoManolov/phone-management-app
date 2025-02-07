@@ -1,8 +1,8 @@
 databaseChangeLog:
-
   - changeSet:
-      id: 3
+      id: subscriptions-schema-1
       author: yovo
       changes:
-        - createSchema:
-            schemaName: subscriptions
+        - sql:
+            dbms: postgresql
+            sql: CREATE SCHEMA IF NOT EXISTS subscriptions;
