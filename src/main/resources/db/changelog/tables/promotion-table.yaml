@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 5
+      id: promotion-1
       author: yovo
       changes:
         - createTable:
@@ -25,12 +25,17 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: currency
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
                   name: discount_type
                   type: varchar(255)
                   constraints:
                     nullable: false
               - column:
                   name: number_of_vouchers
-                  type: int
+                  type: varchar(255)
                   constraints:
                     nullable: false
