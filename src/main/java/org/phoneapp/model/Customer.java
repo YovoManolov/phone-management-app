@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name = "customer", schema = "customers")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,6 +22,7 @@ public class Customer {
     public String name;
     public String address;
     public Integer age;
+    @Column(name="email_contact_number")
     public String emailContactNumber;
 
     @ManyToOne
@@ -29,6 +31,7 @@ public class Customer {
     @ManyToMany
     @JoinTable(
             name = "customer_subscription", // Name of the join table
+            schema = "subscriptions",
             joinColumns = @JoinColumn(name = "customer_id"), // Column in the join table for the student
             inverseJoinColumns = @JoinColumn(name = "subscription_id") // Column in the join table for the course
     )

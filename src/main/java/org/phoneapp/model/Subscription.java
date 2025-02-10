@@ -3,10 +3,12 @@ package org.phoneapp.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name = "subscription", schema = "subscriptions")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,14 +21,11 @@ public class Subscription {
     public Long id;
 
     public String name;
-    public Double price;
+    public BigDecimal price;
     public String subscriptionType;
     public String validity;
 
-    @OneToMany
-    private Subscription subscription;
-
-    @ManyToMany(mappedBy = "customers")
+    @ManyToMany(mappedBy = "subscriptions")
     private Set<Customer> customers = new HashSet<>();
 
 }

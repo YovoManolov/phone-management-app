@@ -3,4 +3,4 @@ databaseChangeLog:
       id: "populate-tables-1"
       author: "yovo"
       sqlFile:
-        path: "src/main/resources/db/changelog/data-population.sql"
+        path: "db/changelog/data-population.sql"

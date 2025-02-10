@@ -3,18 +3,6 @@ databaseChangeLog:
       id: fk-ids-1
       author: yovo
       changes:
-#        - dropForeignKeyConstraint:
-#            baseTableSchemaName: subscriptions
-#            baseTableName: customer_subscription
-#            constraintName: fk_subscription_customer_subscription
-#        - dropForeignKeyConstraint:
-#            baseTableSchemaName: subscriptions
-#            baseTableName: customer_subscription
-#            constraintName: fk_customer_customer_subscription
-#        - dropForeignKeyConstraint:
-#            baseTableSchemaName: customers
-#            baseTableName: customer
-#            constraintName: fk_product_customer
         - addForeignKeyConstraint:
             baseTableSchemaName: subscriptions
             baseTableName: customer_subscription

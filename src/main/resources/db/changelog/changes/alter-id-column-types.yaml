@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - changeSet:
+      id: alter-customer-id-type
+      author: yovo
+      changes:
+        - modifyDataType:
+            tableName: customer
+            schemaName: customers
+            columnName: id
+            newDataType: BIGINT
+
+  - changeSet:
+      id: alter-product-id-type
+      author: yovo
+      changes:
+        - modifyDataType:
+            tableName: product
+            schemaName: products
+            columnName: id
+            newDataType: BIGINT
+
+  - changeSet:
+      id: alter-subscription-id-type
+      author: yovo
+      changes:
+        - modifyDataType:
+            tableName: subscription
+            schemaName: subscriptions
+            columnName: id
+            newDataType: BIGINT
+
+  - changeSet:
+      id: alter-customer-subscription-id-type
+      author: yovo
+      changes:
+        - modifyDataType:
+            tableName: customer_subscription
+            schemaName: subscriptions
+            columnName: id
+            newDataType: BIGINT
+
+  - changeSet:
+      id: alter-promotion-id-type
+      author: yovo
+      changes:
+        - modifyDataType:
+            tableName: promotion
+            schemaName: promotions
+            columnName: id
+            newDataType: BIGINT

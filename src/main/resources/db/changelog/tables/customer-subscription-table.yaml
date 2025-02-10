@@ -9,6 +9,12 @@ databaseChangeLog:
             ifNotExists: true
             columns:
               - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
                   name: customer_id
                   type: int
                   constraints:
@@ -18,7 +24,3 @@ databaseChangeLog:
                   type: int
                   constraints:
                     nullable: false
-            primaryKey:
-              columns:
-                - customer_id
-                - subscription_id

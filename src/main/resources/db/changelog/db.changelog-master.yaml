@@ -1,26 +1,35 @@
 databaseChangeLog:
+# initial setup
   - include:
-      file: "src/main/resources/db/changelog/schemas/products.yaml"
+      file: "db/changelog/schemas/products.yaml"
   - include:
-      file: "src/main/resources/db/changelog/schemas/customers.yaml"
+      file: "db/changelog/schemas/customers.yaml"
   - include:
-      file: "src/main/resources/db/changelog/schemas/promotions.yaml"
+      file: "db/changelog/schemas/promotions.yaml"
   - include:
-      file: "src/main/resources/db/changelog/schemas/subscriptions.yaml"
+      file: "db/changelog/schemas/subscriptions.yaml"
 
   - include:
-      file: "src/main/resources/db/changelog/tables/product-table.yaml"
+      file: "db/changelog/tables/product-table.yaml"
   - include:
-      file: "src/main/resources/db/changelog/tables/customer-table.yaml"
+      file: "db/changelog/tables/customer-table.yaml"
   - include:
-      file: "src/main/resources/db/changelog/tables/subscription-table.yaml"
+      file: "db/changelog/tables/subscription-table.yaml"
   - include:
-      file: "src/main/resources/db/changelog/tables/customer-subscription-table.yaml"
+      file: "db/changelog/tables/customer-subscription-table.yaml"
   - include:
-      file: "src/main/resources/db/changelog/tables/promotion-table.yaml"
+      file: "db/changelog/tables/promotion-table.yaml"
 
   - include:
-      file: "src/main/resources/db/changelog/constraints/foreign-keys.yaml"
+      file: "db/changelog/constraints/foreign-keys.yaml"
 
   - include:
-      file: "src/main/resources/db/changelog/tables/population/data-population.yaml"
+      file: "db/changelog/tables/population/data-population.yaml"
+
+#  changes
+  - include:
+      file: "db/changelog/changes/alter-id-column-types.yaml"
+  - include:
+      file: "db/changelog/changes/alter-customer-product-id-type.yaml"
+  - include:
+      file: "db/changelog/changes/alter-promotion-discount-to-integer.yaml"

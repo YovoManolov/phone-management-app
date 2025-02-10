@@ -3,10 +3,6 @@ databaseChangeLog:
       id: customer-1
       author: yovo
       changes:
-#        - dropTable:
-#              schemaName: customers
-#              tableName: customer
-#              ifExists: true
         - createTable:
             schemaName: customers
             tableName: customer
@@ -14,7 +10,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: serial
+                  type: BIGINT
                   constraints:
                     primaryKey: true
                     nullable: false

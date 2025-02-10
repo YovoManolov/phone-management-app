@@ -3,7 +3,10 @@ package org.phoneapp.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Entity
+@Table(name = "product", schema = "products")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,7 +18,11 @@ public class Product {
     public Long id;
 
     public String name;
-    public String price;
+    public BigDecimal price;
     public String currency;
-    public String discountApplied;
+    @Column(name="discount_applied")
+    public Boolean discountApplied;
 }
+
+
+

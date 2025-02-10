@@ -44,20 +44,20 @@ test {
     systemProperty "java.util.logging.manager", "org.jboss.logmanager.LogManager"
 }
 
-liquibase {
-    activities {
-        main {
-            changelogFile 'src/main/resources/db/changelog/db.changelog-master.yaml'
-            url 'jdbc:postgresql://localhost:5432/mydb'  // Change this to your database URL
-            username 'admin'     // Set the correct username
-            password 'admin' // Set the correct password
-            driver 'org.postgresql.Driver' // Make sure this matches your database
-        }
-    }
-}
+//liquibase {
+//    activities {
+//        main {
+//            changelogFile = 'src/main/resources/db/changelog/db.changelog-master.yaml'  // Correct way to define the path
+//            url = 'jdbc:postgresql://localhost:5432/mydb'  // Database URL
+//            username = 'admin'  // Correct username
+//            password = 'admin'  // Correct password
+//            driver = 'org.postgresql.Driver'  // Database driver
+//        }
+//    }
+//}
 
 tasks.register('liquibaseUpdate', Exec) {
-    commandLine 'liquibase', '--changeLogFile=src/main/resources/db/changelog/db.changelog-master.yaml',
+    commandLine 'liquibase', '--changelogFile=src/main/resources/db/changelog/db.changelog-master.yaml',
             '--url=jdbc:postgresql://localhost:5432/mydb',
             '--username=admin',
             '--password=admin',
