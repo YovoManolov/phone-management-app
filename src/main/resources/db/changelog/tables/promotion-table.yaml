@@ -6,6 +6,7 @@ databaseChangeLog:
         - createTable:
             schemaName: promotions
             tableName: promotion
+            ifNotExists: true
             columns:
               - column:
                   name: id

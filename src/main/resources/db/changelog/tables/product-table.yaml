@@ -6,6 +6,7 @@ databaseChangeLog:
         - createTable:
             schemaName: products
             tableName: product
+            ifNotExists: true
             columns:
               - column:
                   name: id
@@ -20,7 +21,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: price
-                  type: decimal
+                  type: NUMERIC
                   constraints:
                     nullable: false
               - column:
@@ -31,10 +32,5 @@ databaseChangeLog:
               - column:
                   name: discount_applied
                   type: boolean
-                  constraints:
-                    nullable: false
-              - column:
-                  name: customer_id
-                  type: int
                   constraints:
                     nullable: false

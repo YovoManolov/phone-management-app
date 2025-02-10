@@ -3,9 +3,14 @@ databaseChangeLog:
       id: customer-1
       author: yovo
       changes:
+#        - dropTable:
+#              schemaName: customers
+#              tableName: customer
+#              ifExists: true
         - createTable:
             schemaName: customers
             tableName: customer
+            ifNotExists: true
             columns:
               - column:
                   name: id

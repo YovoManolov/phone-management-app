@@ -21,3 +21,6 @@ databaseChangeLog:
 
   - include:
       file: "src/main/resources/db/changelog/constraints/foreign-keys.yaml"
+
+  - include:
+      file: "src/main/resources/db/changelog/tables/population/data-population.yaml"

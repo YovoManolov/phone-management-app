@@ -12,8 +12,6 @@ You can run your application in dev mode that enables live coding using:
 ./gradlew quarkusDev
 ```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
-
 ## Packaging and running the application
 
 The application can be packaged using:
@@ -22,49 +20,45 @@ The application can be packaged using:
 ./gradlew build
 ```
 
-It produces the `quarkus-run.jar` file in the `build/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `build/quarkus-app/lib/` directory.
-
-The application is now runnable using `java -jar build/quarkus-app/quarkus-run.jar`.
-
-If you want to build an _über-jar_, execute the following command:
-
 ```shell script
 ./gradlew build -Dquarkus.package.jar.type=uber-jar
 ```
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar build/*-runner.jar`.
-
-## Creating a native executable
-
-You can create a native executable using:
-
 ```shell script
-./gradlew build -Dquarkus.native.enabled=true
+./gradlew clean build 
+./gradlew liquibaseUpdate -debug/-info
 ```
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
+### Liquibase commands
 
-```shell script
-./gradlew build -Dquarkus.native.enabled=true -Dquarkus.native.container-build=true
-```
+liquibase dropAll
+liquibase clearCheckSums
+liquibase update --log-level debug/info
 
-You can then execute your native executable with: `./build/phone-management-app-1.0.0-SNAPSHOT-runner`
+## Restrictions
 
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/gradle-tooling>.
+- Code structure should follow best standards
+- Reduce number of vouchers after successful applied while purchasing product
+- Customer should have only one product at a time
 
-## Related Guides
+- If customer wants to buy another product, preious product should be replaced by new one
+- Customer cannot by prepaid and postpaid subscriptions together
+- Customer can buy multiple prepaid
+- While replacing prepaid to postpaid, all prepaid should be removed.
+- At a time customer can buy only one prepaid
 
-- Hibernate ORM ([guide](https://quarkus.io/guides/hibernate-orm)): Define your persistent model with Hibernate ORM and Jakarta Persistence
-- Hibernate Validator ([guide](https://quarkus.io/guides/validation)): Validate object properties (field, getter) and method parameters for your beans (REST, CDI, Jakarta Persistence)
-- Reactive PostgreSQL client ([guide](https://quarkus.io/guides/reactive-sql-clients)): Connect to the PostgreSQL database using the reactive pattern
-- JDBC Driver - PostgreSQL ([guide](https://quarkus.io/guides/datasource)): Connect to the PostgreSQL database via JDBC
+- Customer cannot buy multiple postpaid
+- Customer can change postpaid only after validity expire
+- If customer try to change postpaid subscription error should be thrown
+   you can buy new sub only on DD-MM-YYYY
+- Customer can upgrade postpaid plan with immediate effect
+Valid error code and error code description should be thrown
 
-## Provided Code
 
-### Hibernate ORM
 
-Create your first JPA entity
+
+Promocode applies only on mobile product
+Promocode will not applyon subscription
 
 [Related guide section...](https://quarkus.io/guides/hibernate-orm)
 

@@ -6,6 +6,7 @@ databaseChangeLog:
         - createTable:
             schemaName: subscriptions
             tableName: customer_subscription
+            ifNotExists: true
             columns:
               - column:
                   name: customer_id
@@ -17,3 +18,7 @@ databaseChangeLog:
                   type: int
                   constraints:
                     nullable: false
+            primaryKey:
+              columns:
+                - customer_id
+                - subscription_id

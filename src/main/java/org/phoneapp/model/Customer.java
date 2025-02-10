@@ -20,7 +20,7 @@ public class Customer {
 
     public String name;
     public String address;
-    public Integer age   ;
+    public Integer age;
     public String emailContactNumber;
 
     @ManyToOne

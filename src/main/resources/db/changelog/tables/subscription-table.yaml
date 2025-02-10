@@ -1,11 +1,12 @@
 databaseChangeLog:
   - changeSet:
-      id: 6
+      id: subscription-1
       author: yovo
       changes:
         - createTable:
             schemaName: subscriptions
             tableName: subscription
+            ifNotExists: true
             columns:
               - column:
                   name: id
@@ -20,7 +21,12 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: price
-                  type: decimal
+                  type: NUMERIC
+                  constraints:
+                    nullable: false
+              - column:
+                  name: currency
+                  type: varchar(20)
                   constraints:
                     nullable: false
               - column:
