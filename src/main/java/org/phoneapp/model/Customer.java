@@ -6,23 +6,24 @@ import lombok.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
-@Table(name = "customer", schema = "customers")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Entity
+@Table(name = "customer", schema = "customers")
 public class Customer {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Use auto-increment (identity column)
     public Long id;
 
     public String name;
     public String address;
     public Integer age;
-    @Column(name="email_contact_number")
+
+    @Column(name = "email_contact_number")
     public String emailContactNumber;
 
     @ManyToOne
@@ -32,10 +33,8 @@ public class Customer {
     @JoinTable(
             name = "customer_subscription", // Name of the join table
             schema = "subscriptions",
-            joinColumns = @JoinColumn(name = "customer_id"), // Column in the join table for the student
-            inverseJoinColumns = @JoinColumn(name = "subscription_id") // Column in the join table for the course
+            joinColumns = @JoinColumn(name = "customer_id"), // Column in the join table for the customer
+            inverseJoinColumns = @JoinColumn(name = "subscription_id") // Column in the join table for the subscription
     )
     private Set<Subscription> subscriptions = new HashSet<>();
-
-
 }

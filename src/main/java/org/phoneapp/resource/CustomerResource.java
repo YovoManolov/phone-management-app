@@ -14,7 +14,7 @@ import java.util.Optional;
 @Path("/customers")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@RegisterForReflection  // For reflection support if you're using native compilation
+@RegisterForReflection
 public class CustomerResource {
 
     @Inject

@@ -57,12 +57,12 @@ VALUES
  (6, 6),
  (7, 2);
 
-INSERT INTO promotions.promotion (promocode, discount, currency ,discount_type, number_of_vouchers)
+INSERT INTO promotions.promotion (promocode, discount ,discount_type, number_of_vouchers)
 VALUES
- ('PROMO23', 2, 'CHF', 'prepaid', 'unlimited'),
- ('NEWYEAR', 15, 'CHF', 'prepaid', 'unlimited'),
- ('FLAT50', 50, 'CHF', 'prepaid', 'unlimited'),
- ('FLAT100', 100, 'CHF', 'prepaid', '30 days'),
- ('EASTER', 20, 'CHF', 'prepaid', '30 days');
+ ('PROMO23', 2,  '%', 10),
+ ('NEWYEAR', 15, '%', 15),
+ ('FLAT50', 50,  'CHF', 20),
+ ('FLAT100', 100, 'CHF', 25),
+ ('EASTER', 20,  'CHF', 30);
 
 COMMIT;

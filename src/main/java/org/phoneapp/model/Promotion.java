@@ -1,25 +1,25 @@
 package org.phoneapp.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
-@Entity
-@Table(name = "promotion", schema = "promotions")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Entity
+@Table(name = "promotion", schema = "promotions")
 public class Promotion {
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
-    public String name;
+    public String promocode;
     public Integer discount;
+    @Column(name = "discount_type")
     public String discountType;
+    @Column(name = "number_of_vouchers")
     public Integer numberOfVouchers;
 }

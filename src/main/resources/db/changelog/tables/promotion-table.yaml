@@ -25,17 +25,12 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: currency
-                  type: varchar(255)
-                  constraints:
-                    nullable: false
-              - column:
                   name: discount_type
                   type: varchar(255)
                   constraints:
                     nullable: false
               - column:
                   name: number_of_vouchers
-                  type: varchar(255)
+                  type: int
                   constraints:
                     nullable: false

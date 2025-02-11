@@ -33,3 +33,5 @@ databaseChangeLog:
       file: "db/changelog/changes/alter-customer-product-id-type.yaml"
   - include:
       file: "db/changelog/changes/alter-promotion-discount-to-integer.yaml"
+  - include:
+      file: "db/changelog/changes/alter-promotion-number-of-vouchers-to-int.yaml"

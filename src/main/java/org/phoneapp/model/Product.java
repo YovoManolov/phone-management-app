@@ -5,16 +5,17 @@ import lombok.*;
 
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "product", schema = "products")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Entity
+@Table(name = "product", schema = "products")
 public class Product {
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
     public String name;

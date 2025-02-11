@@ -11,7 +11,7 @@ import org.phoneapp.repository.CustomerRepository;
 import java.util.List;
 import java.util.Optional;
 
-@Path("/customers")
+@Path("/subscriptions")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @RegisterForReflection  // For reflection support if you're using native compilation

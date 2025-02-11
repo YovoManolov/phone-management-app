@@ -27,7 +27,14 @@ The application can be packaged using:
 ```shell script
 ./gradlew clean build 
 ./gradlew liquibaseUpdate -debug/-info
+
+
+ How to check the local dependencies : 
+ ./gradlew dependencies --configuration runtimeClasspath
+
 ```
+
+
 
 ### Liquibase commands
 

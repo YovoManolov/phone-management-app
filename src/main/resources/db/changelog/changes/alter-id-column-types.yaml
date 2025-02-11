@@ -7,7 +7,7 @@ databaseChangeLog:
             tableName: customer
             schemaName: customers
             columnName: id
-            newDataType: BIGINT
+            newDataType: BIGSERIAL
 
   - changeSet:
       id: alter-product-id-type
@@ -17,7 +17,7 @@ databaseChangeLog:
             tableName: product
             schemaName: products
             columnName: id
-            newDataType: BIGINT
+            newDataType: BIGSERIAL
 
   - changeSet:
       id: alter-subscription-id-type
@@ -27,7 +27,7 @@ databaseChangeLog:
             tableName: subscription
             schemaName: subscriptions
             columnName: id
-            newDataType: BIGINT
+            newDataType: BIGSERIAL
 
   - changeSet:
       id: alter-customer-subscription-id-type
@@ -37,7 +37,17 @@ databaseChangeLog:
             tableName: customer_subscription
             schemaName: subscriptions
             columnName: id
-            newDataType: BIGINT
+            newDataType: BIGSERIAL
+        - modifyDataType:
+            tableName: customer_subscription
+            schemaName: subscriptions
+            columnName: customer_id
+            newDataType: BIGSERIAL
+        - modifyDataType:
+            tableName: customer_subscription
+            schemaName: subscriptions
+            columnName: subscription_id
+            newDataType: BIGSERIAL
 
   - changeSet:
       id: alter-promotion-id-type
@@ -47,4 +57,4 @@ databaseChangeLog:
             tableName: promotion
             schemaName: promotions
             columnName: id
-            newDataType: BIGINT
+            newDataType: BIGSERIAL
