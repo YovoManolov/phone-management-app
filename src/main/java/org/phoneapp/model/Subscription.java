@@ -1,5 +1,6 @@
 package org.phoneapp.model;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,10 +10,11 @@ import java.util.Set;
 
 @Getter
 @Setter
+@Entity
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-@Entity
+@RegisterForReflection
 @Table(name = "subscription", schema = "subscriptions")
 public class Subscription {
 

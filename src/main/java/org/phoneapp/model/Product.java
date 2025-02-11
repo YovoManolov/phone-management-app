@@ -1,5 +1,6 @@
 package org.phoneapp.model;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -7,10 +8,11 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
+@Entity
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-@Entity
+@RegisterForReflection
 @Table(name = "product", schema = "products")
 public class Product {
 

@@ -1,14 +1,16 @@
 package org.phoneapp.model;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
 @Setter
+@Entity
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-@Entity
+@RegisterForReflection
 @Table(name = "promotion", schema = "promotions")
 public class Promotion {
 

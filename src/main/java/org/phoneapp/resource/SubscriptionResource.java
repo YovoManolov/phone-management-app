@@ -5,8 +5,8 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.phoneapp.model.Customer;
-import org.phoneapp.repository.CustomerRepository;
+import org.phoneapp.model.Subscription;
+import org.phoneapp.repository.SubscriptionRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,53 +18,52 @@ import java.util.Optional;
 public class SubscriptionResource {
 
     @Inject
-    CustomerRepository customerRepository;  // Inject your Panache repository
+    SubscriptionRepository subscriptionRepository;  // Inject your Panache repository
 
-    // Get all customers
+    // Get all subscriptions
     @GET
-    public List<Customer> getAllCustomers() {
-        return customerRepository.listAll();  // Fetches all customers
+    public List<Subscription> getAllSubscriptions() {
+        return subscriptionRepository.listAll();  // Fetches all subscriptions
     }
 
-    // Get customer by id
+    // Get subscription by id
     @GET
     @Path("/{id}")
-    public Response getCustomerById(@PathParam("id") Long id) {
-        Optional<Customer> customer = customerRepository.findByIdOptional(id);  // Fetches customer by ID
-        return customer.map(Response::ok)  // Response.ok() returns a ResponseBuilder
+    public Response getSubscriptionById(@PathParam("id") Long id) {
+        Optional<Subscription> subscription = subscriptionRepository.findByIdOptional(id);  // Fetches subscription by ID
+        return subscription.map(Response::ok)  // Response.ok() returns a ResponseBuilder
                 .orElseGet(() -> Response.status(Response.Status.NOT_FOUND))  // Only set status for NOT_FOUND
                 .build();  // Call build() only once, at the end
     }
 
-
-    // Create a new customer
+    // Create a new subscription
     @POST
-    public Response createCustomer(Customer customer) {
-        customerRepository.persist(customer);  // Saves customer to the database
-        return Response.status(Response.Status.CREATED).entity(customer).build();
+    public Response createSubscription(Subscription subscription) {
+        subscriptionRepository.persist(subscription);  // Saves subscription to the database
+        return Response.status(Response.Status.CREATED).entity(subscription).build();
     }
 
-    // Update an existing customer
+    // Update an existing subscription
     @PUT
     @Path("/{id}")
-    public Response updateCustomer(@PathParam("id") Long id, Customer customer) {
-        Optional<Customer> existingCustomer = customerRepository.findByIdOptional(id);
-        if (existingCustomer.isPresent()) {
-            customer.id = id;  // Ensure the ID remains the same
-            customerRepository.persist(customer);  // Update the existing customer
-            return Response.ok(customer).build();
+    public Response updateSubscription(@PathParam("id") Long id, Subscription subscription) {
+        Optional<Subscription> existingSubscription = subscriptionRepository.findByIdOptional(id);
+        if (existingSubscription.isPresent()) {
+            subscription.id = id;  // Ensure the ID remains the same
+            subscriptionRepository.persist(subscription);  // Update the existing subscription
+            return Response.ok(subscription).build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
 
-    // Delete a customer
+    // Delete a subscription
     @DELETE
     @Path("/{id}")
-    public Response deleteCustomer(@PathParam("id") Long id) {
-        Optional<Customer> customer = customerRepository.findByIdOptional(id);
-        if (customer.isPresent()) {
-            customerRepository.delete(customer.get());  // Deletes the customer
+    public Response deleteSubscription(@PathParam("id") Long id) {
+        Optional<Subscription> subscription = subscriptionRepository.findByIdOptional(id);
+        if (subscription.isPresent()) {
+            subscriptionRepository.delete(subscription.get());  // Deletes the subscription
             return Response.noContent().build();  // Successful deletion
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
