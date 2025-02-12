@@ -1,6 +1,7 @@
 package org.phoneapp.resource;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -11,6 +12,7 @@ import org.phoneapp.repository.ProductRepository;
 import java.util.List;
 import java.util.Optional;
 
+@RolesAllowed({"user", "admin"})
 @Path("/products")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
