@@ -1,11 +1,10 @@
 package org.phoneapp.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,12 +17,13 @@ import java.util.Set;
 @AllArgsConstructor
 @RegisterForReflection
 @Table(name = "customer", schema = "customers")
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Customer {
 
     @Id
+    @Schema(hidden = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
+
     public String name;
     public String address;
     public String gender;

@@ -26,13 +26,12 @@ dependencies {
     implementation 'io.quarkus:quarkus-elytron-security-properties-file'
     implementation 'io.quarkus:quarkus-vertx-http'
     implementation 'io.quarkus:quarkus-swagger-ui'
-
+    implementation "io.swagger.core.v3:swagger-annotations:${swaggerAnnotationsVersion}"
     implementation "org.postgresql:postgresql:${postgresVersion}"
     implementation "org.liquibase:liquibase-core:${liquibaseVersion}"
     implementation "info.picocli:picocli:${picocliVersion}"
     implementation "org.projectlombok:lombok:${lombokVersion}"
     implementation "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}"
-
     liquibaseRuntime "org.liquibase:liquibase-core:${liquibaseVersion}"
     liquibaseRuntime "org.postgresql:postgresql:${postgresVersion}"
     liquibaseRuntime "info.picocli:picocli:${picocliVersion}"

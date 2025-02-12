@@ -1,6 +1,7 @@
 package org.phoneapp.model;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,6 +20,7 @@ import java.util.Set;
 public class Subscription {
 
     @Id
+    @Schema(hidden = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
