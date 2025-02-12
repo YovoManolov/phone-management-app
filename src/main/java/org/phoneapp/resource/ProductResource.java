@@ -3,6 +3,7 @@ package org.phoneapp.resource;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -41,6 +42,7 @@ public class ProductResource {
 
     // Create a new customer
     @POST
+    @Transactional
     public Response createProduct(Product product) {
         productRepository.persist(product);  // Saves product to the database
         return Response.status(Response.Status.CREATED).entity(product).build();
@@ -49,6 +51,7 @@ public class ProductResource {
     // Update an existing product
     @PUT
     @Path("/{id}")
+    @Transactional
     public Response updateProduct(@PathParam("id") Long id, Product product) {
         Optional<Product> existingProduct = productRepository.findByIdOptional(id);
         if (existingProduct.isPresent()) {
@@ -63,6 +66,7 @@ public class ProductResource {
     // Delete a product
     @DELETE
     @Path("/{id}")
+    @Transactional
     public Response deleteProduct(@PathParam("id") Long id) {
         Optional<Product> product = productRepository.findByIdOptional(id);
         if (product.isPresent()) {

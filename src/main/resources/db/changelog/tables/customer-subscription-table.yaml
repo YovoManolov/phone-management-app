@@ -10,17 +10,17 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: serial
+                  type: BIGSERIAL
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
                   name: customer_id
-                  type: int
+                  type: BIGINT
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: subscription_id
-                  type: int
+                  type: BIGINT
                   constraints:
-                    nullable: false
+                    nullable: true

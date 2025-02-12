@@ -3,6 +3,7 @@ package org.phoneapp.resource;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -40,6 +41,7 @@ public class SubscriptionResource {
 
     // Create a new subscription
     @POST
+    @Transactional
     public Response createSubscription(Subscription subscription) {
         subscriptionRepository.persist(subscription);  // Saves subscription to the database
         return Response.status(Response.Status.CREATED).entity(subscription).build();
@@ -48,6 +50,7 @@ public class SubscriptionResource {
     // Update an existing subscription
     @PUT
     @Path("/{id}")
+    @Transactional
     public Response updateSubscription(@PathParam("id") Long id, Subscription subscription) {
         Optional<Subscription> existingSubscription = subscriptionRepository.findByIdOptional(id);
         if (existingSubscription.isPresent()) {
@@ -62,6 +65,7 @@ public class SubscriptionResource {
     // Delete a subscription
     @DELETE
     @Path("/{id}")
+    @Transactional
     public Response deleteSubscription(@PathParam("id") Long id) {
         Optional<Subscription> subscription = subscriptionRepository.findByIdOptional(id);
         if (subscription.isPresent()) {

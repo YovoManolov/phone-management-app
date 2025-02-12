@@ -3,6 +3,7 @@ package org.phoneapp.resource;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -38,9 +39,9 @@ public class PromotionResource {
                 .build();  // Call build() only once, at the end
     }
 
-
     // Create a new promotion
     @POST
+    @Transactional
     public Response createPromotion(Promotion promotion) {
         promotionRepository.persist(promotion);  // Saves promotion to the database
         return Response.status(Response.Status.CREATED).entity(promotion).build();
@@ -49,6 +50,7 @@ public class PromotionResource {
     // Update an existing promotion
     @PUT
     @Path("/{id}")
+    @Transactional
     public Response updatePromotion(@PathParam("id") Long id, Promotion promotion) {
         Optional<Promotion> existingPromotion = promotionRepository.findByIdOptional(id);
         if (existingPromotion.isPresent()) {
@@ -63,6 +65,7 @@ public class PromotionResource {
     // Delete a promotion
     @DELETE
     @Path("/{id}")
+    @Transactional
     public Response deletePromotion(@PathParam("id") Long id) {
         Optional<Promotion> promotion = promotionRepository.findByIdOptional(id);
         if (promotion.isPresent()) {

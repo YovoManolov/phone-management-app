@@ -38,10 +38,11 @@ The application can be packaged using:
 
 ### Liquibase commands
 
+```
 liquibase dropAll
 liquibase clearCheckSums
 liquibase update --log-level debug/info
-
+```
 ## Restrictions
 
 - Code structure should follow best standards

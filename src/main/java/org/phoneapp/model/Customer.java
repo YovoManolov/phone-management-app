@@ -4,6 +4,9 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.persistence.*;
 import lombok.*;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,6 +18,7 @@ import java.util.Set;
 @AllArgsConstructor
 @RegisterForReflection
 @Table(name = "customer", schema = "customers")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Customer {
 
     @Id
@@ -22,15 +26,18 @@ public class Customer {
     public Long id;
     public String name;
     public String address;
+    public String gender;
     public Integer age;
 
     @Column(name = "email_contact_number")
     public String emailContactNumber;
 
     @ManyToOne
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Product product;
 
     @ManyToMany
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @JoinTable(
             name = "customer_subscription",
             schema = "subscriptions",

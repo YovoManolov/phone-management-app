@@ -10,7 +10,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: BIGINT
+                  type: BIGSERIAL
                   constraints:
                     primaryKey: true
                     nullable: false
@@ -41,6 +41,6 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: product_id
-                  type: int
+                  type: BIGINT
                   constraints:
-                    nullable: false
+                    nullable: true

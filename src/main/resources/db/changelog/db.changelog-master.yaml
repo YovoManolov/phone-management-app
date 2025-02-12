@@ -27,11 +27,4 @@ databaseChangeLog:
       file: "db/changelog/tables/population/data-population.yaml"
 
 #  changes
-  - include:
-      file: "db/changelog/changes/alter-id-column-types.yaml"
-  - include:
-      file: "db/changelog/changes/alter-customer-product-id-type.yaml"
-  - include:
-      file: "db/changelog/changes/alter-promotion-discount-to-integer.yaml"
-  - include:
-      file: "db/changelog/changes/alter-promotion-number-of-vouchers-to-int.yaml"
+

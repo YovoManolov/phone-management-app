@@ -10,7 +10,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: serial
+                  type: BIGSERIAL
                   constraints:
                     primaryKey: true
                     nullable: false
@@ -21,7 +21,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: discount
-                  type: varchar(255)
+                  type: int
                   constraints:
                     nullable: false
               - column:
