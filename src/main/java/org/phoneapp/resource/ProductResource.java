@@ -8,7 +8,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.phoneapp.model.Product;
-import org.phoneapp.repository.ProductRepository;
+import org.phoneapp.service.ProductService;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,46 +21,37 @@ import java.util.Optional;
 public class ProductResource {
 
     @Inject
-    ProductRepository productRepository;  // Inject your Panache repository
+    ProductService productService;
 
     // Get all customers
     @GET
     public List<Product> getAllProducts() {
-        return productRepository.listAll();  // Fetches all customers
+        return productService.getAllProducts();
     }
 
     // Get customer by id
     @GET
     @Path("/{id}")
     public Response getProductById(@PathParam("id") Long id) {
-        Optional<Product> product = productRepository.findByIdOptional(id);  // Fetches customer by ID
-        return product.map(Response::ok)  // Response.ok() returns a ResponseBuilder
-                .orElseGet(() -> Response.status(Response.Status.NOT_FOUND))  // Only set status for NOT_FOUND
-                .build();  // Call build() only once, at the end
-    }
+        Optional<Product> result = productService.getProductById(id);
+        return result.map(Response::ok).orElse(Response.status(Response.Status.NOT_FOUND)).build();
 
+    }
 
     // Create a new customer
     @POST
     @Transactional
     public Response createProduct(Product product) {
-        productRepository.persist(product);  // Saves product to the database
-        return Response.status(Response.Status.CREATED).entity(product).build();
+        Product createdProduct = productService.createProduct(product);
+        return Response.status(Response.Status.CREATED).entity(createdProduct).build();
     }
 
     // Update an existing product
     @PUT
     @Path("/{id}")
-    @Transactional
-    public Response updateProduct(@PathParam("id") Long id, Product product) {
-        Optional<Product> existingProduct = productRepository.findByIdOptional(id);
-        if (existingProduct.isPresent()) {
-            product.setId(id);   // Ensure the ID remains the same
-            productRepository.persist(product);  // Update the existing product
-            return Response.ok(product).build();
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
+    public Response updateProduct(@PathParam("id") Long id, Product updatedProduct) {
+        Optional<Product> result = productService.updateProduct(id,updatedProduct);
+        return result.map(Response::ok).orElse(Response.status(Response.Status.NOT_FOUND)).build();
     }
 
     // Delete a product
@@ -68,12 +59,7 @@ public class ProductResource {
     @Path("/{id}")
     @Transactional
     public Response deleteProduct(@PathParam("id") Long id) {
-        Optional<Product> product = productRepository.findByIdOptional(id);
-        if (product.isPresent()) {
-            productRepository.delete(product.get());  // Deletes the product
-            return Response.noContent().build();  // Successful deletion
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
+        boolean deleted = productService.deleteProduct(id);
+        return deleted ? Response.noContent().build() : Response.status(Response.Status.NOT_FOUND).build();
     }
 }

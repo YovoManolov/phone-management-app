@@ -8,7 +8,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.phoneapp.model.Promotion;
-import org.phoneapp.repository.PromotionRepository;
+import org.phoneapp.service.PromotionService;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,45 +21,37 @@ import java.util.Optional;
 public class PromotionResource {
 
     @Inject
-    PromotionRepository promotionRepository;  // Inject your Panache repository
+    PromotionService promotionService;
 
-    // Get all promotions
+    // Get all customers
     @GET
     public List<Promotion> getAllPromotions() {
-        return promotionRepository.listAll();  // Fetches all promotions
+        return promotionService.getAllPromotions();
     }
 
-    // Get promotion by id
+    // Get customer by id
     @GET
     @Path("/{id}")
     public Response getPromotionById(@PathParam("id") Long id) {
-        Optional<Promotion> promotion = promotionRepository.findByIdOptional(id);  // Fetches promotion by ID
-        return promotion.map(Response::ok)  // Response.ok() returns a ResponseBuilder
-                .orElseGet(() -> Response.status(Response.Status.NOT_FOUND))  // Only set status for NOT_FOUND
-                .build();  // Call build() only once, at the end
+        Optional<Promotion> result = promotionService.getPromotionById(id);
+        return result.map(Response::ok).orElse(Response.status(Response.Status.NOT_FOUND)).build();
+
     }
 
-    // Create a new promotion
+    // Create a new customer
     @POST
     @Transactional
     public Response createPromotion(Promotion promotion) {
-        promotionRepository.persist(promotion);  // Saves promotion to the database
-        return Response.status(Response.Status.CREATED).entity(promotion).build();
+        Promotion createdPromotion = promotionService.createPromotion(promotion);
+        return Response.status(Response.Status.CREATED).entity(createdPromotion).build();
     }
 
     // Update an existing promotion
     @PUT
     @Path("/{id}")
-    @Transactional
-    public Response updatePromotion(@PathParam("id") Long id, Promotion promotion) {
-        Optional<Promotion> existingPromotion = promotionRepository.findByIdOptional(id);
-        if (existingPromotion.isPresent()) {
-            promotion.setId(id);  // Ensure the ID remains the same
-            promotionRepository.persist(promotion);  // Update the existing promotion
-            return Response.ok(promotion).build();
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
+    public Response updatePromotion(@PathParam("id") Long id, Promotion updatedPromotion) {
+        Optional<Promotion> result = promotionService.updatePromotion(id,updatedPromotion);
+        return result.map(Response::ok).orElse(Response.status(Response.Status.NOT_FOUND)).build();
     }
 
     // Delete a promotion
@@ -67,12 +59,7 @@ public class PromotionResource {
     @Path("/{id}")
     @Transactional
     public Response deletePromotion(@PathParam("id") Long id) {
-        Optional<Promotion> promotion = promotionRepository.findByIdOptional(id);
-        if (promotion.isPresent()) {
-            promotionRepository.delete(promotion.get());  // Deletes the promotion
-            return Response.noContent().build();  // Successful deletion
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
+        boolean deleted = promotionService.deletePromotion(id);
+        return deleted ? Response.noContent().build() : Response.status(Response.Status.NOT_FOUND).build();
     }
 }

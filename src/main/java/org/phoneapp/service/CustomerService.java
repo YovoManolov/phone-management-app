@@ -54,6 +54,11 @@ public class CustomerService {
         }
 
         // Only update non-null fields
+        /* side note:
+        *    Some frameworks (e.g., JPA/Hibernate) automatically optimize updates
+        *    by generating SQL only for changed fields. In such cases, blind updates
+        *    at the application level might not result in unnecessary database writes.
+        * */
         if (updatedCustomer.getName() != null) existingCustomer.setName(updatedCustomer.getName());
         if (updatedCustomer.getAddress() != null) existingCustomer.setAddress(updatedCustomer.getAddress());
         if (updatedCustomer.getGender() != null) existingCustomer.setGender(updatedCustomer.getGender());

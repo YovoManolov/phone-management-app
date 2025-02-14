@@ -60,5 +60,4 @@ public class CustomerResource {
         return deleted ? Response.noContent().build() : Response.status(Response.Status.NOT_FOUND).build();
     }
 
-
 }

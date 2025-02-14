@@ -8,7 +8,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.phoneapp.model.Subscription;
-import org.phoneapp.repository.SubscriptionRepository;
+import org.phoneapp.service.SubscriptionService;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,45 +21,37 @@ import java.util.Optional;
 public class SubscriptionResource {
 
     @Inject
-    SubscriptionRepository subscriptionRepository;  // Inject your Panache repository
+    SubscriptionService subscriptionService;
 
-    // Get all subscriptions
+    // Get all customers
     @GET
     public List<Subscription> getAllSubscriptions() {
-        return subscriptionRepository.listAll();  // Fetches all subscriptions
+        return subscriptionService.getAllSubscriptions();
     }
 
-    // Get subscription by id
+    // Get customer by id
     @GET
     @Path("/{id}")
     public Response getSubscriptionById(@PathParam("id") Long id) {
-        Optional<Subscription> subscription = subscriptionRepository.findByIdOptional(id);  // Fetches subscription by ID
-        return subscription.map(Response::ok)  // Response.ok() returns a ResponseBuilder
-                .orElseGet(() -> Response.status(Response.Status.NOT_FOUND))  // Only set status for NOT_FOUND
-                .build();  // Call build() only once, at the end
+        Optional<Subscription> result = subscriptionService.getSubscriptionById(id);
+        return result.map(Response::ok).orElse(Response.status(Response.Status.NOT_FOUND)).build();
+
     }
 
-    // Create a new subscription
+    // Create a new customer
     @POST
     @Transactional
     public Response createSubscription(Subscription subscription) {
-        subscriptionRepository.persist(subscription);  // Saves subscription to the database
-        return Response.status(Response.Status.CREATED).entity(subscription).build();
+        Subscription createdSubscription = subscriptionService.createSubscription(subscription);
+        return Response.status(Response.Status.CREATED).entity(createdSubscription).build();
     }
 
     // Update an existing subscription
     @PUT
     @Path("/{id}")
-    @Transactional
-    public Response updateSubscription(@PathParam("id") Long id, Subscription subscription) {
-        Optional<Subscription> existingSubscription = subscriptionRepository.findByIdOptional(id);
-        if (existingSubscription.isPresent()) {
-            subscription.setId(id);  // Ensure the ID remains the same
-            subscriptionRepository.persist(subscription);  // Update the existing subscription
-            return Response.ok(subscription).build();
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
+    public Response updateSubscription(@PathParam("id") Long id, Subscription updatedSubscription) {
+        Optional<Subscription> result = subscriptionService.updateSubscription(id, updatedSubscription);
+        return result.map(Response::ok).orElse(Response.status(Response.Status.NOT_FOUND)).build();
     }
 
     // Delete a subscription
@@ -67,12 +59,7 @@ public class SubscriptionResource {
     @Path("/{id}")
     @Transactional
     public Response deleteSubscription(@PathParam("id") Long id) {
-        Optional<Subscription> subscription = subscriptionRepository.findByIdOptional(id);
-        if (subscription.isPresent()) {
-            subscriptionRepository.delete(subscription.get());  // Deletes the subscription
-            return Response.noContent().build();  // Successful deletion
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
+        boolean deleted = subscriptionService.deleteSubscription(id);
+        return deleted ? Response.noContent().build() : Response.status(Response.Status.NOT_FOUND).build();
     }
 }
