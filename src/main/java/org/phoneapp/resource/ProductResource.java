@@ -55,7 +55,7 @@ public class ProductResource {
     public Response updateProduct(@PathParam("id") Long id, Product product) {
         Optional<Product> existingProduct = productRepository.findByIdOptional(id);
         if (existingProduct.isPresent()) {
-            product.id = id;  // Ensure the ID remains the same
+            product.setId(id);   // Ensure the ID remains the same
             productRepository.persist(product);  // Update the existing product
             return Response.ok(product).build();
         } else {

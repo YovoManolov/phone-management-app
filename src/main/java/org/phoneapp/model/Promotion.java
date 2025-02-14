@@ -18,12 +18,12 @@ public class Promotion {
     @Id
     @Schema(hidden = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+    private Long id;
 
-    public String promocode;
-    public Integer discount;
+    private String promocode;
+    private Integer discount;
     @Column(name = "discount_type")
-    public String discountType;
+    private String discountType;
     @Column(name = "number_of_vouchers")
-    public Integer numberOfVouchers;
+    private Integer numberOfVouchers;
 }

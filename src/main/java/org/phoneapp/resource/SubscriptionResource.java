@@ -54,7 +54,7 @@ public class SubscriptionResource {
     public Response updateSubscription(@PathParam("id") Long id, Subscription subscription) {
         Optional<Subscription> existingSubscription = subscriptionRepository.findByIdOptional(id);
         if (existingSubscription.isPresent()) {
-            subscription.id = id;  // Ensure the ID remains the same
+            subscription.setId(id);  // Ensure the ID remains the same
             subscriptionRepository.persist(subscription);  // Update the existing subscription
             return Response.ok(subscription).build();
         } else {

@@ -36,6 +36,9 @@ dependencies {
     liquibaseRuntime "org.postgresql:postgresql:${postgresVersion}"
     liquibaseRuntime "info.picocli:picocli:${picocliVersion}"
 
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
     testImplementation 'io.quarkus:quarkus-junit5'
 }
 

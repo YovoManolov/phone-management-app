@@ -1,5 +1,7 @@
 package org.phoneapp.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
@@ -22,15 +24,19 @@ public class Subscription {
     @Id
     @Schema(hidden = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+    private Long id;
 
-    public String name;
-    public BigDecimal price;
+    private String name;
+    private BigDecimal price;
+
+    private String currency;
     @Column(name="subscription_type")
-    public String subscriptionType;
-    public String validity;
+    private String subscriptionType;
+    private String validity;
 
     @ManyToMany(mappedBy = "subscriptions")
+    @JsonIgnore
+    @JsonBackReference
     private Set<Customer> customers = new HashSet<>();
 
 }

@@ -54,7 +54,7 @@ public class CustomerResource {
     public Response updateCustomer(@PathParam("id") Long id, Customer customer) {
         Optional<Customer> existingCustomer = customerRepository.findByIdOptional(id);
         if (existingCustomer.isPresent()) {
-            customer.id = id;  // Ensure the ID remains the same
+            customer.setId(id);  // Ensure the ID remains the same
             customerRepository.persist(customer);  // Update the existing customer
             return Response.ok(customer).build();
         } else {

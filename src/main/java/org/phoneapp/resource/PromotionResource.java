@@ -54,7 +54,7 @@ public class PromotionResource {
     public Response updatePromotion(@PathParam("id") Long id, Promotion promotion) {
         Optional<Promotion> existingPromotion = promotionRepository.findByIdOptional(id);
         if (existingPromotion.isPresent()) {
-            promotion.id = id;  // Ensure the ID remains the same
+            promotion.setId(id);  // Ensure the ID remains the same
             promotionRepository.persist(promotion);  // Update the existing promotion
             return Response.ok(promotion).build();
         } else {

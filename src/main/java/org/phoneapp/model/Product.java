@@ -20,13 +20,13 @@ public class Product {
     @Id
     @Schema(hidden = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+    private Long id;
 
-    public String name;
-    public BigDecimal price;
-    public String currency;
+    private String name;
+    private BigDecimal price;
+    private String currency;
     @Column(name="discount_applied")
-    public Boolean discountApplied;
+    private Boolean discountApplied;
 }
 
 

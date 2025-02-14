@@ -22,17 +22,17 @@ public class Customer {
     @Id
     @Schema(hidden = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+    private Long id;
 
-    public String name;
-    public String address;
-    public String gender;
-    public Integer age;
+    private String name;
+    private String address;
+    private String gender;
+    private Integer age;
 
     @Column(name = "email_contact_number")
-    public String emailContactNumber;
+    private String emailContactNumber;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Product product;
 
