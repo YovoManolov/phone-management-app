@@ -1,14 +1,14 @@
 package org.phoneapp.resource;
 
-import jakarta.annotation.security.RolesAllowed;
-import jakarta.transaction.Transactional;
-import org.phoneapp.model.Customer;
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.phoneapp.repository.CustomerRepository;
+import org.phoneapp.model.Customer;
+import org.phoneapp.service.CustomerService;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,58 +21,44 @@ import java.util.Optional;
 public class CustomerResource {
 
     @Inject
-    CustomerRepository customerRepository;  // Inject your Panache repository
+    CustomerService customerService;  // Inject your Panache repository
 
     // Get all customers
     @GET
     public List<Customer> getAllCustomers() {
-        return customerRepository.listAll();  // Fetches all customers
+        return customerService.getAllCustomers();
     }
 
     // Get customer by id
     @GET
     @Path("/{id}")
     public Response getCustomerById(@PathParam("id") Long id) {
-        Optional<Customer> customer = customerRepository.findByIdOptional(id);  // Fetches customer by ID
-        return customer.map(Response::ok)  // Response.ok() returns a ResponseBuilder
-                .orElseGet(() -> Response.status(Response.Status.NOT_FOUND))  // Only set status for NOT_FOUND
-                .build();  // Call build() only once, at the end
+        Optional<Customer> result = customerService.getCustomerById(id);
+        return result.map(Response::ok).orElse(Response.status(Response.Status.NOT_FOUND)).build();
     }
 
     // Create a new customer
     @POST
     @Transactional
     public Response createCustomer(Customer customer) {
-        customerRepository.persist(customer);  // Saves customer to the database
-        return Response.status(Response.Status.CREATED).entity(customer).build();
+        Customer createdCustomer = customerService.createCustomer(customer);
+        return Response.status(Response.Status.CREATED).entity(createdCustomer).build();
     }
 
-    // Update an existing customer
     @PUT
     @Path("/{id}")
-    @Transactional
-    public Response updateCustomer(@PathParam("id") Long id, Customer customer) {
-        Optional<Customer> existingCustomer = customerRepository.findByIdOptional(id);
-        if (existingCustomer.isPresent()) {
-            customer.setId(id);  // Ensure the ID remains the same
-            customerRepository.persist(customer);  // Update the existing customer
-            return Response.ok(customer).build();
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
+    public Response updateCustomer(@PathParam("id") Long id, Customer updatedCustomer) {
+        Optional<Customer> result = customerService.updateCustomer(id, updatedCustomer);
+        return result.map(Response::ok).orElse(Response.status(Response.Status.NOT_FOUND)).build();
     }
 
-    // Delete a customer
     @DELETE
     @Path("/{id}")
     @Transactional
     public Response deleteCustomer(@PathParam("id") Long id) {
-        Optional<Customer> customer = customerRepository.findByIdOptional(id);
-        if (customer.isPresent()) {
-            customerRepository.delete(customer.get());  // Deletes the customer
-            return Response.noContent().build();  // Successful deletion
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
+        boolean deleted = customerService.deleteCustomer(id);
+        return deleted ? Response.noContent().build() : Response.status(Response.Status.NOT_FOUND).build();
     }
+
+
 }
