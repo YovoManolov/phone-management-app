@@ -3,11 +3,11 @@ package org.phoneapp.resource;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.phoneapp.model.Customer;
+import org.phoneapp.model.customer.CustomerRequestDto;
+import org.phoneapp.model.customer.Customer;
 import org.phoneapp.service.CustomerService;
 
 import java.util.List;
@@ -39,22 +39,37 @@ public class CustomerResource {
 
     // Create a new customer
     @POST
-    @Transactional
-    public Response createCustomer(Customer customer) {
+    public Response createCustomer(CustomerRequestDto customer) {
         Customer createdCustomer = customerService.createCustomer(customer);
         return Response.status(Response.Status.CREATED).entity(createdCustomer).build();
     }
 
+    // Purchase product
+    @POST
+    @Path("/{customerId}/purchaseProduct/{productId}")
+    public Response purchaseProduct(@PathParam("customerId") Long customerId,
+                                    @PathParam("productId") Long productId) {
+        customerService.purchaseProduct(customerId, productId);
+        return Response.ok("Customer " + customerId + " purchased product " + productId).build();
+    }
+
+    @POST
+    @Path("/{customerId}/subscribeTo/{subscriptionId}")
+    public Response subscribeToSubscription(@PathParam("customerId") Long customerId,
+                                            @PathParam("subscriptionId") Long subscriptionId) {
+        customerService.subscribeToSubscription(customerId, subscriptionId);
+        return Response.ok("Customer " + customerId + " subscribed to subscription " + subscriptionId).build();
+    }
+
     @PUT
     @Path("/{id}")
-    public Response updateCustomer(@PathParam("id") Long id, Customer updatedCustomer) {
+    public Response updateCustomer(@PathParam("id") Long id, CustomerRequestDto updatedCustomer) {
         Optional<Customer> result = customerService.updateCustomer(id, updatedCustomer);
         return result.map(Response::ok).orElse(Response.status(Response.Status.NOT_FOUND)).build();
     }
 
     @DELETE
     @Path("/{id}")
-    @Transactional
     public Response deleteCustomer(@PathParam("id") Long id) {
         boolean deleted = customerService.deleteCustomer(id);
         return deleted ? Response.noContent().build() : Response.status(Response.Status.NOT_FOUND).build();

@@ -40,7 +40,6 @@ public class PromotionResource {
 
     // Create a new customer
     @POST
-    @Transactional
     public Response createPromotion(Promotion promotion) {
         Promotion createdPromotion = promotionService.createPromotion(promotion);
         return Response.status(Response.Status.CREATED).entity(createdPromotion).build();
@@ -57,7 +56,6 @@ public class PromotionResource {
     // Delete a promotion
     @DELETE
     @Path("/{id}")
-    @Transactional
     public Response deletePromotion(@PathParam("id") Long id) {
         boolean deleted = promotionService.deletePromotion(id);
         return deleted ? Response.noContent().build() : Response.status(Response.Status.NOT_FOUND).build();

@@ -40,7 +40,6 @@ public class ProductResource {
 
     // Create a new customer
     @POST
-    @Transactional
     public Response createProduct(Product product) {
         Product createdProduct = productService.createProduct(product);
         return Response.status(Response.Status.CREATED).entity(createdProduct).build();
@@ -57,7 +56,6 @@ public class ProductResource {
     // Delete a product
     @DELETE
     @Path("/{id}")
-    @Transactional
     public Response deleteProduct(@PathParam("id") Long id) {
         boolean deleted = productService.deleteProduct(id);
         return deleted ? Response.noContent().build() : Response.status(Response.Status.NOT_FOUND).build();

@@ -1,4 +1,4 @@
-package org.phoneapp.model;
+package org.phoneapp.model.subscription;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -6,6 +6,7 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
+import org.phoneapp.model.customer.Customer;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -28,10 +29,12 @@ public class Subscription {
 
     private String name;
     private BigDecimal price;
-
     private String currency;
+
     @Column(name="subscription_type")
-    private String subscriptionType;
+    @Convert(converter = SubscriptionTypeConverter.class)
+    private SubscriptionType subscriptionType;
+
     private String validity;
 
     @ManyToMany(mappedBy = "subscriptions")

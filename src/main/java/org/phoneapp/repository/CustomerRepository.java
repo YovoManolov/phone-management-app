@@ -1,7 +1,7 @@
 package org.phoneapp.repository;
 
 
-import org.phoneapp.model.Customer;
+import org.phoneapp.model.customer.Customer;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import jakarta.enterprise.context.ApplicationScoped;
 

@@ -1,10 +1,12 @@
-package org.phoneapp.model;
+package org.phoneapp.model.customer;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
+import org.phoneapp.model.Product;
+import org.phoneapp.model.subscription.Subscription;
 
 import java.util.HashSet;
 import java.util.Set;

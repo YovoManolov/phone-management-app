@@ -3,11 +3,10 @@ package org.phoneapp.resource;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.phoneapp.model.Subscription;
+import org.phoneapp.model.subscription.Subscription;
 import org.phoneapp.service.SubscriptionService;
 
 import java.util.List;
@@ -40,7 +39,6 @@ public class SubscriptionResource {
 
     // Create a new customer
     @POST
-    @Transactional
     public Response createSubscription(Subscription subscription) {
         Subscription createdSubscription = subscriptionService.createSubscription(subscription);
         return Response.status(Response.Status.CREATED).entity(createdSubscription).build();
@@ -57,7 +55,6 @@ public class SubscriptionResource {
     // Delete a subscription
     @DELETE
     @Path("/{id}")
-    @Transactional
     public Response deleteSubscription(@PathParam("id") Long id) {
         boolean deleted = subscriptionService.deleteSubscription(id);
         return deleted ? Response.noContent().build() : Response.status(Response.Status.NOT_FOUND).build();

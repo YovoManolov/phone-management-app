@@ -3,7 +3,7 @@ package org.phoneapp.service;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import org.phoneapp.model.Subscription;
+import org.phoneapp.model.subscription.Subscription;
 import org.phoneapp.repository.SubscriptionRepository;
 
 import java.util.List;

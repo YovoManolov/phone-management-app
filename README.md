@@ -44,9 +44,9 @@ liquibase clearCheckSums
 liquibase update --log-level debug/info
 ```
 ## Restrictions
-
-- Code structure should follow best standards
-- Reduce number of vouchers after successful applied while purchasing product
+```
+- Code structure should follow best standards - ok 
+- Reduce number of vouchers after successful applied while purchasing product 
 - Customer should have only one product at a time
 
 - If customer wants to buy another product, preious product should be replaced by new one
@@ -60,14 +60,14 @@ liquibase update --log-level debug/info
 - If customer try to change postpaid subscription error should be thrown
    you can buy new sub only on DD-MM-YYYY
 - Customer can upgrade postpaid plan with immediate effect
-Valid error code and error code description should be thrown
+- Valid error code and error code description should be thrown
 
+- Create customer should only create customer, not add product or purchase subscription
+- Purchase product API only meant for purchase product 
+- you should not send entire customer details in Purchase Product API
+- While you purchase product include promotion vaucher also in the request.
 
-
-
-Promocode applies only on mobile product
-Promocode will not applyon subscription
-
-[Related guide section...](https://quarkus.io/guides/hibernate-orm)
-
+- Promocode applies only on mobile product
+- Promocode will not applyon subscription
+```
 
