@@ -44,23 +44,6 @@ public class CustomerResource {
         return Response.status(Response.Status.CREATED).entity(createdCustomer).build();
     }
 
-    // Purchase product
-    @POST
-    @Path("/{customerId}/purchaseProduct/{productId}")
-    public Response purchaseProduct(@PathParam("customerId") Long customerId,
-                                    @PathParam("productId") Long productId) {
-        customerService.purchaseProduct(customerId, productId);
-        return Response.ok("Customer " + customerId + " purchased product " + productId).build();
-    }
-
-    @POST
-    @Path("/{customerId}/subscribeTo/{subscriptionId}")
-    public Response subscribeToSubscription(@PathParam("customerId") Long customerId,
-                                            @PathParam("subscriptionId") Long subscriptionId) {
-        customerService.subscribeToSubscription(customerId, subscriptionId);
-        return Response.ok("Customer " + customerId + " subscribed to subscription " + subscriptionId).build();
-    }
-
     @PUT
     @Path("/{id}")
     public Response updateCustomer(@PathParam("id") Long id, CustomerRequestDto updatedCustomer) {

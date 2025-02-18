@@ -4,6 +4,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.phoneapp.model.Product;
+import org.phoneapp.model.customer.Customer;
+import org.phoneapp.model.customer.CustomerRequestDto;
 import org.phoneapp.repository.ProductRepository;
 
 import java.util.List;
@@ -14,6 +16,13 @@ public class ProductService {
 
     @Inject
     ProductRepository productRepository;
+
+    @Inject
+    PromotionService promotionService;
+
+    @Inject
+    CustomerService customerService;
+
 
     // Get all customers
     public List<Product> getAllProducts() {
@@ -58,5 +67,25 @@ public class ProductService {
             return true;
         }
         return false;
+    }
+
+    @Transactional
+    public void purchaseProduct(Long customerId, Long productId, Long promotionId) {
+        // Fetch the Customer
+        promotionService.decrementNumberOfVouchersByPromotionId(promotionId);
+
+        Optional<Customer> optCustomer = customerService.getCustomerById(customerId);
+        if (optCustomer.isEmpty()) {
+            throw new IllegalArgumentException("Customer with ID " + customerId + " not found.");
+        }
+        Customer customer = optCustomer.get();
+        CustomerRequestDto customerRequestDto = CustomerRequestDto.fromCustomer(customer);
+
+
+        // Replace the existing product or assign a new one
+        customerRequestDto.setProductId(productId);
+
+        // Persist the updated customer
+        customerService.updateCustomer(customerId ,customerRequestDto);
     }
 }

@@ -3,7 +3,6 @@ package org.phoneapp.resource;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -22,6 +21,9 @@ public class ProductResource {
 
     @Inject
     ProductService productService;
+
+    @Inject
+    ProductService customerService;
 
     // Get all customers
     @GET
@@ -60,4 +62,15 @@ public class ProductResource {
         boolean deleted = productService.deleteProduct(id);
         return deleted ? Response.noContent().build() : Response.status(Response.Status.NOT_FOUND).build();
     }
+
+    // Purchase product
+    @POST
+    @Path("/{customerId}/purchaseProduct/{productId}")
+    public Response purchaseProduct(@PathParam("customerId") Long customerId,
+                                    @PathParam("productId") Long productId,
+                                    @PathParam("promotionId") Long promotionId) {
+        productService.purchaseProduct(customerId, productId, promotionId);
+        return Response.ok("Customer " + customerId + " purchased product " + productId).build();
+    }
+
 }

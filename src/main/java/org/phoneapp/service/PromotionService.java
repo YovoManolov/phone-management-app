@@ -48,6 +48,19 @@ public class PromotionService {
         return Optional.of(existingPromotion);  // Return the updated promotion
     }
 
+    // Update an existing promotion
+    @Transactional
+    public Optional<Promotion> decrementNumberOfVouchersByPromotionId(Long id) {
+        Promotion existingPromotion = promotionRepository.findById(id);
+        if (existingPromotion == null) {
+            return Optional.empty();  // Promotion not found
+        }
+
+        existingPromotion.setNumberOfVouchers(existingPromotion.getNumberOfVouchers()-1);
+        promotionRepository.persist(existingPromotion);
+        return Optional.of(existingPromotion);  // Return the updated promotion
+    }
+
     // Delete a promotion
     @Transactional
     public boolean deletePromotion(Long id) {

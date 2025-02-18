@@ -59,4 +59,14 @@ public class SubscriptionResource {
         boolean deleted = subscriptionService.deleteSubscription(id);
         return deleted ? Response.noContent().build() : Response.status(Response.Status.NOT_FOUND).build();
     }
+
+
+    @POST
+    @Path("/{customerId}/subscribeTo/{subscriptionId}")
+    public Response subscribeToSubscription(@PathParam("customerId") Long customerId,
+                                            @PathParam("subscriptionId") Long subscriptionId) {
+        subscriptionService.subscribeToSubscription(customerId, subscriptionId);
+        return Response.ok("Customer " + customerId + " subscribed to subscription " + subscriptionId).build();
+    }
+
 }
