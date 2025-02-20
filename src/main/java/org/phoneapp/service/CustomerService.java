@@ -3,7 +3,8 @@ package org.phoneapp.service;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import org.phoneapp.model.Product;
+import org.phoneapp.model.product.CustomerProduct;
+import org.phoneapp.model.product.Product;
 import org.phoneapp.model.customer.Customer;
 import org.phoneapp.model.customer.CustomerRequestDto;
 import org.phoneapp.model.subscription.Subscription;
@@ -11,6 +12,8 @@ import org.phoneapp.repository.CustomerRepository;
 import org.phoneapp.repository.ProductRepository;
 import org.phoneapp.repository.SubscriptionRepository;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -49,14 +52,26 @@ public class CustomerService {
         customer.setAge(customerRequestDto.getAge());
         customer.setEmailContactNumber(customerRequestDto.getEmailContactNumber());
 
+        // Handle product association through the join table
         if (customerRequestDto.getProductId() != null) {
             Product product = productRepository.findById(customerRequestDto.getProductId());
             if (product == null) {
                 throw new IllegalArgumentException("Product with ID " + customerRequestDto.getProductId() + " not found.");
             }
-            customer.setProduct(product);
+
+            // Create a new CustomerProduct entry to represent the association
+            CustomerProduct customerProduct = new CustomerProduct();
+            customerProduct.setCustomer(customer);
+            customerProduct.setProduct(product);
+            customerProduct.setPurchaseDate(Timestamp.valueOf(LocalDateTime.now())); // Or use the purchase date from DTO if available
+            customerProduct.setPurchasePrice(product.getPrice()); // You can set the purchase price from the DTO if needed
+            customerProduct.setPromotionCodeApplied(false); // Similarly, set this based on the request DTO if available
+
+            // Add the created CustomerProduct to the customer’s collection
+            customer.getCustomerProducts().add(customerProduct);
         }
 
+        // Handle subscriptions
         if (customerRequestDto.getSubscriptionIds() != null && !customerRequestDto.getSubscriptionIds().isEmpty()) {
             Set<Subscription> subscriptions = customerRequestDto.getSubscriptionIds().stream()
                     .map(subscriptionRepository::findById)
@@ -66,9 +81,11 @@ public class CustomerService {
             if (subscriptions.size() != customerRequestDto.getSubscriptionIds().size()) {
                 throw new IllegalArgumentException("One or more subscriptions not found.");
             }
+
             customer.setSubscriptions(subscriptions);
         }
 
+        // Persist the customer along with its relationships
         customerRepository.persist(customer);  // Save the customer to the database
         return customer;
     }
@@ -83,25 +100,40 @@ public class CustomerService {
         }
 
         // Only update non-null fields
-        /* side note:
-        *    Some frameworks (e.g., JPA/Hibernate) automatically optimize updates
-        *    by generating SQL only for changed fields. In such cases, blind updates
-        *    at the application level might not result in unnecessary database writes.
-        * */
         if (customerRequestDto.getName() != null) existingCustomer.setName(customerRequestDto.getName());
         if (customerRequestDto.getAddress() != null) existingCustomer.setAddress(customerRequestDto.getAddress());
         if (customerRequestDto.getGender() != null) existingCustomer.setGender(customerRequestDto.getGender());
         if (customerRequestDto.getAge() != null) existingCustomer.setAge(customerRequestDto.getAge());
-        if (customerRequestDto.getEmailContactNumber() != null) existingCustomer.setEmailContactNumber(
-                customerRequestDto.getEmailContactNumber());
+        if (customerRequestDto.getEmailContactNumber() != null) {
+            existingCustomer.setEmailContactNumber(customerRequestDto.getEmailContactNumber());
+        }
 
-        // Handle product relationship
+        // Handle product relationship with join table (CustomerProduct)
         if (customerRequestDto.getProductId() != null) {
             Product product = productRepository.findById(customerRequestDto.getProductId());
             if (product == null) {
                 throw new IllegalArgumentException("Product with ID " + customerRequestDto.getProductId() + " not found.");
             }
-            existingCustomer.setProduct(product);
+
+            // Check if product already exists in the customer's customerProducts set
+            Optional<CustomerProduct> existingProductAssociation = existingCustomer.getCustomerProducts().stream()
+                    .filter(cp -> cp.getProduct().getId().equals(product.getId()))
+                    .findFirst();
+
+            if (existingProductAssociation.isPresent()) {
+                // If the product association already exists, no need to add a new one
+                CustomerProduct customerProduct = existingProductAssociation.get();
+                // Optionally, update fields like purchaseDate, purchasePrice, etc.
+            } else {
+                // If not, create a new association in the join table
+                CustomerProduct customerProduct = new CustomerProduct();
+                customerProduct.setCustomer(existingCustomer);
+                customerProduct.setProduct(product);
+                customerProduct.setPurchaseDate(Timestamp.valueOf(LocalDateTime.now())); // or use DTO value
+                customerProduct.setPurchasePrice(product.getPrice()); // or use DTO value
+                customerProduct.setPromotionCodeApplied(false); // or use DTO value TODO
+                existingCustomer.getCustomerProducts().add(customerProduct);
+            }
         }
 
         // Handle subscriptions
@@ -118,7 +150,7 @@ public class CustomerService {
             existingCustomer.setSubscriptions(subscriptions);
         }
 
-        //no need to explicitly call persist. JPA will generate sql statement because of the Transactional annotation.
+        // Persist the updated customer (via the transactional context, the changes will be saved)
         return Optional.of(existingCustomer);  // Return the updated customer
     }
 

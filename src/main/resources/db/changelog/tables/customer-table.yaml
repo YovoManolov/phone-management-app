@@ -39,8 +39,3 @@ databaseChangeLog:
                   type: varchar
                   constraints:
                     nullable: false
-              - column:
-                  name: product_id
-                  type: BIGINT
-                  constraints:
-                    nullable: true

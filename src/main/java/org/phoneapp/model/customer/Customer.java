@@ -5,7 +5,7 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
-import org.phoneapp.model.Product;
+import org.phoneapp.model.product.CustomerProduct;
 import org.phoneapp.model.subscription.Subscription;
 
 import java.util.HashSet;
@@ -34,9 +34,8 @@ public class Customer {
     @Column(name = "email_contact_number")
     private String emailContactNumber;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Product product;
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<CustomerProduct> customerProducts = new HashSet<>();
 
     @ManyToMany
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -47,4 +46,6 @@ public class Customer {
             inverseJoinColumns = @JoinColumn(name = "subscription_id") // Column in the join table for the subscription
     )
     private Set<Subscription> subscriptions = new HashSet<>();
+
 }
+

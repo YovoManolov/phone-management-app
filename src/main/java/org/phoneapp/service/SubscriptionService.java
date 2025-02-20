@@ -43,6 +43,7 @@ public class SubscriptionService {
     @Transactional
     public Optional<Subscription> updateSubscription(Long id, Subscription updatedSubscription) {
         Subscription existingSubscription = subscriptionRepository.findById(id);
+
         if (existingSubscription == null) {
             return Optional.empty();  // Subscription not found
         }

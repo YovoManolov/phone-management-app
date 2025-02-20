@@ -1,6 +1,5 @@
 package org.phoneapp.model.subscription;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -39,7 +38,6 @@ public class Subscription {
 
     @ManyToMany(mappedBy = "subscriptions")
     @JsonIgnore
-    @JsonBackReference
     private Set<Customer> customers = new HashSet<>();
 
 }

@@ -20,10 +20,18 @@ databaseChangeLog:
             referencedColumnNames: id
             constraintName: fk_customer_customer_subscription
         - addForeignKeyConstraint:
-            baseTableSchemaName: customers
-            baseTableName: customer
+            baseTableSchemaName: products
+            baseTableName: customer_product
+            baseColumnNames: customer_id
+            referencedTableSchemaName: customers
+            referencedTableName: customer
+            referencedColumnNames: id
+            constraintName: fk_customer_product_customer
+        - addForeignKeyConstraint:
+            baseTableSchemaName: products
+            baseTableName: customer_product
             baseColumnNames: product_id
             referencedTableSchemaName: products
             referencedTableName: product
             referencedColumnNames: id
-            constraintName: fk_product_customer
+            constraintName: fk_customer_product_product

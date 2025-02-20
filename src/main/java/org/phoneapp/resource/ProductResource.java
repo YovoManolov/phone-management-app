@@ -6,7 +6,7 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.phoneapp.model.Product;
+import org.phoneapp.model.product.Product;
 import org.phoneapp.service.ProductService;
 
 import java.util.List;

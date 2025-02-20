@@ -45,29 +45,32 @@ liquibase update --log-level debug/info
 ```
 ## Restrictions
 ```
-- Code structure should follow best standards - ok 
-- Reduce number of vouchers after successful applied while purchasing product 
-- Customer should have only one product at a time
+- Code structure should follow best standards - OK 
+- Reduce number of vouchers after successful applied while purchasing product - OK check
+- Customer should have only one product at a time - OK - check
 
-- If customer wants to buy another product, preious product should be replaced by new one
-- Customer cannot by prepaid and postpaid subscriptions together
-- Customer can buy multiple prepaid
-- While replacing prepaid to postpaid, all prepaid should be removed.
-- At a time customer can buy only one prepaid
+- If customer wants to buy another product, previous product should be replaced by new one - OK check
+- Customer cannot by prepaid and postpaid subscriptions together - OK check
+- Customer can buy multiple prepaid - OK check
+- While replacing prepaid to postpaid, all prepaid should be removed. - OK check
+- At a time customer can buy only one prepaid - OK check
+- customer-purchase join table - with info of purchase date and purchase prise which promotion code was applied.
 
-- Customer cannot buy multiple postpaid
-- Customer can change postpaid only after validity expire
-- If customer try to change postpaid subscription error should be thrown
-   you can buy new sub only on DD-MM-YYYY
-- Customer can upgrade postpaid plan with immediate effect
-- Valid error code and error code description should be thrown
 
-- Create customer should only create customer, not add product or purchase subscription
-- Purchase product API only meant for purchase product 
-- you should not send entire customer details in Purchase Product API
-- While you purchase product include promotion vaucher also in the request.
+- Customer cannot buy multiple postpaid - OK check
 
-- Promocode applies only on mobile product
-- Promocode will not applyon subscription
+- Not implemented: Customer can change postpaid only after validity expire  
+- Not implemented: If customer try to change postpaid subscription error should be thrown "you can buy new sub only on DD-MM-YYYY 
+- Not implemented: Customer can upgrade postpaid plan with immediate effect 
+- Valid error code and error code description should be thrown - OK - check
+
+
+- OK check - Create customer should only create customer, not add product or purchase subscription
+- Ok check - Purchase product API only meant for purchase product 
+- Ok check - you should not send entire customer details in Purchase Product API
+- Ok check While you purchase product include promotion vaucher also in the request.
+
+- Promocode applies only on mobile product - ? 
+- Promocode will not apply on subscription  - ? 
 ```
 

@@ -4,8 +4,8 @@ databaseChangeLog:
       author: yovo
       changes:
         - createTable:
-            schemaName: subscriptions
-            tableName: customer_subscription
+            schemaName: products
+            tableName: customer_product
             ifNotExists: true
             columns:
               - column:
@@ -20,7 +20,7 @@ databaseChangeLog:
                   constraints:
                     nullable: true
               - column:
-                  name: subscription_id
+                  name: product_id
                   type: BIGINT
                   constraints:
                     nullable: true
@@ -31,8 +31,13 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: is_active
+                  name: purchase_price
+                  type: NUMERIC
+                  constraints:
+                    nullable: true
+              - column:
+                  name: promotion_code_applied
                   type: BOOLEAN
                   defaultValueBoolean: true
                   constraints:
-                    nullable: false
+                    nullable: true

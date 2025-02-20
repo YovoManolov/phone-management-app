@@ -3,7 +3,7 @@ package org.phoneapp.service;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import org.phoneapp.model.Product;
+import org.phoneapp.model.product.Product;
 import org.phoneapp.model.customer.Customer;
 import org.phoneapp.model.customer.CustomerRequestDto;
 import org.phoneapp.repository.ProductRepository;
